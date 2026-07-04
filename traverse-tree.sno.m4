@@ -6,9 +6,15 @@ COMMENT(Define null)
 COMMENT(Define node type)
       data('node(value,left,right)')
 
+COMMENT(Define nullnode)
+      nullnode = node(null,null,null)
+
 COMMENT(Create expression tree)
-      tree = node('-',node(3,null,null),node(5,null,null))
-      tree = node('+',node(2,null,null),tree)
+      subtree = node('log',nullnode,node(5,nullnode,nullnode))
+      tree = node('-',node(3,nullnode,subtree),nullnode)
+
+      subtree = node('sin',node(8,nullnode,nullnode),nullnode)
+      tree = node('+',subtree,tree)
 
 SUBSECTION(Traverse in Preorder)
       `define'('preorder(btree)val,l,r', 'pre')             :(endpre)
