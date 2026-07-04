@@ -87,7 +87,7 @@ MAINSECTION(Execute Traversion Functions)
       output = 'Traverse in Inorder'
       inorder(tree)
       output = ' '
-      output = 'Traverse in Inorder'
+      output = 'Traverse in Postorder'
       postorder(tree)
 end
 
