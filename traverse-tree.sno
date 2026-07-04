@@ -1,0 +1,113 @@
+* ---------------------------------------------------------------------- 
+* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+* traverse-tree.sno 
+* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+* ---------------------------------------------------------------------- 
+* Project:  https://github.com/ad2108/traverse-binary-tree-in-snobol4 
+* Author:   ad2108 
+* Date:     04.07.2026 
+* Version:  1.0.0 
+* License:  MIT 
+* ---------------------------------------------------------------------- 
+
+* Define null 
+      null = 'NULL'
+
+* Define node type 
+      data('node(value,left,right)')
+
+* Create expression tree 
+      tree = node('-',node(3,null,null),node(5,null,null))
+      tree = node('+',node(2,null,null),tree)
+
+* ---------------------------------------------------------------------- 
+* Traverse in Preorder 
+* ---------------------------------------------------------------------- 
+      define('preorder(btree)val,l,r', 'pre')             :(endpre)
+pre
+* Deal with root value 
+      val = value(btree)                                  :f(freturn)
+      output = val
+
+* Deal with left subtree 
+      l = left(btree)
+      value(l) null                                       :s(skiplpre)
+      preorder(l)
+skiplpre
+
+* Deal with right subtree 
+      r = right(btree)
+      value(r) null                                       :s(skiprpre)
+      preorder(r) 
+skiprpre
+* Return from function 
+                                                          :(return)
+endpre
+
+* ---------------------------------------------------------------------- 
+* Traverse in Inorder 
+* ---------------------------------------------------------------------- 
+      define('inorder(btree)val,l,r', 'ins')              :(endin)
+ins
+* Deal with left subtree 
+      l = left(btree)
+      value(l) null                                       :s(skiplin)
+      inorder(l)
+skiplin
+
+* Deal with root value 
+      val = value(btree)                                  :f(freturn)
+      output = val
+
+* Deal with right subtree 
+      r = right(btree)
+      value(r) null                                       :s(skiprin)
+      inorder(r) 
+skiprin
+                                                          :(return)
+endin
+
+* ---------------------------------------------------------------------- 
+* Traverse in Postorder 
+* ---------------------------------------------------------------------- 
+      define('postorder(btree)val,l,r', 'post')           :(endpost)
+post
+* Deal with left subtree 
+      l = left(btree)
+      value(l) null                                       :s(skiplpost)
+      postorder(l)
+skiplpost
+
+* Deal with left subtree 
+      r = right(btree)
+      value(r) null                                       :s(skiprpost)
+      postorder(r) 
+skiprpost
+
+* Deal with root value 
+      val = value(btree)                                  :f(freturn)
+      output = val
+                                                          :(return)
+endpost
+
+* ---------------------------------------------------------------------- 
+* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+* ---------------------------------------------------------------------- 
+* Execute Traversion Functions 
+* ---------------------------------------------------------------------- 
+      output = 'Traverse in Preoder'
+      preorder(tree)
+      output = ' '
+      output = 'Traverse in Inorder'
+      inorder(tree)
+      output = ' '
+      output = 'Traverse in Inorder'
+      postorder(tree)
+end
+
+* ---------------------------------------------------------------------- 
+* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+* End of file 
+* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+* ---------------------------------------------------------------------- 
+
